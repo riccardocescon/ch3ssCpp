@@ -1,10 +1,5 @@
 #include "./Piece.h"
 
-Piece::Piece()
-{
-    this->value = 0;
-}
-
 Piece::~Piece()
 {
 }

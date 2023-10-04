@@ -5,6 +5,7 @@ class Cell
     private:
         int pos;
         Piece *piece;
+        bool freeUpperSpace;
     public:
         Cell();
         Cell(int pos);
@@ -15,4 +16,6 @@ class Cell
         Piece *getPiece();
         void setPiece(Piece *piece);
         void print();
+        std::string getSymbol();
+        void setFreeUpperSpace(bool space);
 };
