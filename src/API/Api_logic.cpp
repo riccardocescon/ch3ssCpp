@@ -1,4 +1,6 @@
-#include "Api_logic.h"
+#include "../../include/API/Api_logic.h"
+
+Map* Api_logic::map = NULL;
 
 std::vector<Cell*> Api_logic::selectCells(Cell* cell){
     std::vector<Cell*> cells{cell};
@@ -11,6 +13,7 @@ std::vector<Cell*> Api_logic::selectCells(Cell* cell){
         tempCells = getPathFromIds(layer, CellsId[i]);
         cells.insert(cells.end(), tempCells.begin(), tempCells.end());
     }
+    return cells;
 }
 
 

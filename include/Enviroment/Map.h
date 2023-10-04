@@ -16,10 +16,11 @@ class Map{
         void pushLayers(std::vector<Layer*> layers);
         void addLayer(Layer *layer);
         void print();
+        void print(std::vector<Cell*> cell);
         Layer *getLayer(int pos);
         int getHeight();
         void setLayer(int pos, Layer *layer);
-        Layer* findLayer(Piece* piece);
+        Layer* findLayer(CPiece* piece);
         Layer* findLayer(Cell* cell);
         int getLayerPos(Layer* layer);
         void printLayer(int pos);

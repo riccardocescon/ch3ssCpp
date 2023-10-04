@@ -1,7 +1,6 @@
 #ifndef LAYER_H
 
 #include "./Cell.h"
-#include "./Piece.h"
 #include <vector>
 #include <iostream>
 #include <cmath>
@@ -19,9 +18,10 @@ class Layer{
         void pushCells(std::vector<Cell*> cells);
         void addCell(Cell *cell);
         void print();
+        void print(std::vector<Cell*> cells);
         Cell *getCell(int pos);
         void setCell(int pos, Cell *cell);
-        Cell findCell(Piece* piece);
+        Cell findCell(CPiece* piece);
         int getSize();
 };
 

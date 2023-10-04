@@ -1,4 +1,4 @@
-#include "./Cell.h"
+#include "../../include/Enviroment/Cell.h"
 #include <iostream>
 
 Cell::Cell()
@@ -11,7 +11,7 @@ Cell::Cell(int pos)
     this->pos = pos;
 }
 
-Cell::Cell(int pos, Piece *piece)
+Cell::Cell(int pos, CPiece *piece)
 {
     this->pos = pos;
     this->piece = piece;
@@ -32,12 +32,12 @@ void Cell::setPos(int pos)
     this->pos = pos;
 }
 
-Piece *Cell::getPiece()
+CPiece *Cell::getPiece()
 {
     return this->piece;
 }
 
-void Cell::setPiece(Piece *piece)
+void Cell::setPiece(CPiece *piece)
 {
     this->piece = piece;
 }
@@ -54,11 +54,11 @@ void Cell::print()
     }
 }
 
-std::string Cell::getSymbol(){
-    int x = (this->pos - 1) % 8;
-    int y = this->pos / 8;
+std::string Cell::getSymbol(int size){
+    int x = (this->pos % size) - 1;
+    int y = this->pos / size;
     std::string cell = "";
-    cell += (char) (x + 97);
+    cell += (char) (x + 98);
     cell += (char) (y + 49);
     return cell;
 }

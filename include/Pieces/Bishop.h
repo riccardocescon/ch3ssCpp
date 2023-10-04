@@ -1,9 +1,8 @@
 #ifndef BISHOP_H
 
-#include "../Piece.h"
-#include "../Utils.cpp"
+#include "./Piece.h"
 
-class Bishop : public Piece
+class Bishop : public CPiece
 {
 public:
     Bishop();

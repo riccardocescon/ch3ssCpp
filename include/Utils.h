@@ -1,4 +1,6 @@
-#include <iostream>
+#ifndef UTILS_H
+
+#pragma once
 
 namespace Utils{
     enum Color{
@@ -24,3 +26,5 @@ namespace Utils{
 
     const int PIECEHEIGHT = 2;
 }
+
+#endif

@@ -1,12 +1,14 @@
 #ifndef PIECE_H
 
+#pragma once
+
 #include <vector>
-#include "./Utils.cpp"
-class Piece
+#include "../../include/Utils.h"
+class CPiece
 {
 public:
-    Piece();
-    ~Piece();
+    CPiece();
+    ~CPiece();
     int getValue();
     virtual std::vector<std::vector<int>> getMoves(int position, int mapLength) = 0;
 protected:

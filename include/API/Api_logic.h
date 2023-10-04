@@ -2,8 +2,7 @@
 
 #include <iostream>
 #include <vector>
-#include "../Cell.h"
-#include "../Map.h"
+#include "../Enviroment/Map.h"
 
 class Api_logic{
     private:

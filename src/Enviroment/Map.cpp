@@ -1,4 +1,4 @@
-#include "Map.h"
+#include "../../include/Enviroment/Map.h"
 
 Map::Map(){
     this->layers = std::vector<Layer*>();
@@ -54,8 +54,16 @@ void Map::addLayer(Layer *layer){
 }
 
 void Map::print(){
+    std::cout << std::endl;
     for (int i = 0; i < this->layers.size(); i++){
         this->layers[i]->print();
+    }
+}
+
+void Map::print(std::vector<Cell*> cells){
+    std::cout << std::endl;
+    for (int i = 0; i < this->layers.size(); i++){
+        this->layers[i]->print(cells);
     }
 }
 
@@ -71,7 +79,7 @@ void Map::setLayer(int pos, Layer *layer){
     this->layers[pos] = layer;
 }
 
-Layer *Map::findLayer(Piece* piece){
+Layer *Map::findLayer(CPiece* piece){
     for (int i = 0; i < this->layers.size(); i++){
         for (int j = 0; j < this->layers[i]->getCells().size(); j++){
             if (this->layers[i]->getCells()[j]->getPiece() == piece){

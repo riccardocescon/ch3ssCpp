@@ -2,9 +2,6 @@
 
 #include <iostream>
 #include <vector>
-#include "../Cell.h"
-#include "../Piece.h"
-#include "../Utils.cpp"
 #include "./Api_logic.h"
 
 class FSM {
@@ -13,7 +10,7 @@ class FSM {
         static Utils::State state;
     public:
         std::vector<Cell*> selectCell(Cell* cell);
-        std::vector<Cell*> selectPiece(Piece* piece);
+        std::vector<Cell*> selectPiece(CPiece* piece);
 };
 
 #endif
