@@ -1,3 +1,5 @@
+#ifndef FSM_H
+
 #include <iostream>
 #include <vector>
 #include "../Cell.h"
@@ -13,3 +15,5 @@ class FSM {
         std::vector<Cell*> selectCell(Cell* cell);
         std::vector<Cell*> selectPiece(Piece* piece);
 };
+
+#endif

@@ -66,3 +66,7 @@ std::string Cell::getSymbol(){
 void Cell::setFreeUpperSpace(bool space){
     this->freeUpperSpace = space;
 }
+
+bool Cell::isFreeUpperSpace(){
+    return this->freeUpperSpace;
+}

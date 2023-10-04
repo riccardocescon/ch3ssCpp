@@ -1,3 +1,5 @@
+#ifndef API_LOGIC_H
+
 #include <iostream>
 #include <vector>
 #include "../Cell.h"
@@ -5,9 +7,11 @@
 
 class Api_logic{
     private:
-        Map* map;
+        static Map* map;
     public:
-        std::vector<Cell*> selectCell(Cell* cell);
-        std::vector<Cell*> selectCells(Cell* cell, Layer* layer);
-        std::vector<int> getCells(std::vector<int> pos, Layer* startLayer);
+        static std::vector<Cell*> selectCell(Cell* cell);
+        static std::vector<Cell*> selectCells(Cell* cell);
+        static std::vector<Cell*> getPathFromIds(Layer* startLayer, std::vector<int> cellsId);
 };
+
+#endif

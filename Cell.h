@@ -1,3 +1,4 @@
+#ifndef CELL_H
 #include "./Piece.h"
 
 class Cell
@@ -18,4 +19,7 @@ class Cell
         void print();
         std::string getSymbol();
         void setFreeUpperSpace(bool space);
+        bool isFreeUpperSpace();
 };
+
+#endif

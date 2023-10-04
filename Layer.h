@@ -1,3 +1,5 @@
+#ifndef LAYER_H
+
 #include "./Cell.h"
 #include "./Piece.h"
 #include <vector>
@@ -22,3 +24,5 @@ class Layer{
         Cell findCell(Piece* piece);
         int getSize();
 };
+
+#endif

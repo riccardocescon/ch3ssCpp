@@ -1,3 +1,5 @@
+#ifndef MAP_H
+
 #include "./Layer.h"
 
 class Map{
@@ -23,3 +25,5 @@ class Map{
         void printLayer(int pos);
         void printLayers();
 };
+
+#endif
