@@ -7,20 +7,22 @@ class Cell
     private:
         int pos;
         CPiece *piece;
-        bool freeUpperSpace;
+        int freeUpperSpace;
+        std::string symbol;
     public:
         Cell();
-        Cell(int pos);
-        Cell(int pos, CPiece *piece);
+        Cell(int pos, int layerSize);
+        Cell(int pos, CPiece *piece, int layerSize);
         ~Cell();
         int getPos();
         void setPos(int pos);
         CPiece *getPiece();
         void setPiece(CPiece *piece);
         void print();
-        std::string getSymbol(int size);
-        void setFreeUpperSpace(bool space);
-        bool isFreeUpperSpace();
+        std::string getCellSymbol(int size);
+        void setFreeUpperSpace(int space);
+        int getFreeUpperSpace();
+        std::string getSymbol();
 };
 
 #endif

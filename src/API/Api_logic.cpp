@@ -2,53 +2,70 @@
 
 Map* Api_logic::map = NULL;
 
+void Api_logic::setMap(Map *copyMap){
+    map = copyMap;
+}
+
 std::vector<Cell*> Api_logic::selectCells(Cell* cell){
-    std::vector<Cell*> cells{cell};
+    std::vector<Cell*> cells;
     Layer* layer = map->findLayer(cell);
     if(cell->getPiece() == NULL)
         return cells;
     std::vector<std::vector<int>> CellsId = cell->getPiece()->getMoves(cell->getPos(), layer->getSize());
     std::vector<Cell*> tempCells;
     for(int i = 0; i < CellsId.size(); i++){
-        tempCells = getPathFromIds(layer, CellsId[i]);
+        tempCells = getPathFromIds(layer, CellsId[i], true);
         cells.insert(cells.end(), tempCells.begin(), tempCells.end());
+        tempCells.clear();
     }
     return cells;
 }
 
 
-std::vector<Cell*> Api_logic::getPathFromIds(Layer* startLayer, std::vector<int> cellsId){
+std::vector<Cell*> Api_logic::getPathFromIds(Layer* startLayer, std::vector<int> cellsId, bool firstCall = false){
     int startLayerPos = map->getLayerPos(startLayer);
-    int maxDist = 0, height = 0, lowness = 0;
-    Cell* upperCell = NULL, *bottomCell = NULL, *nextCell = NULL;
-    std::vector<Cell*> cells;
-    std::vector<Cell*> tempCells;
-    for(int i = 0; i < cellsId.size(); i++){
-        while(upperCell == NULL && startLayerPos + height < map->getHeight()){
-            height++;
-            upperCell = map->getLayer(startLayerPos + height)->getCell(cellsId[i]);
-            nextCell = map->getLayer(startLayerPos + height - Utils::PIECEHEIGHT)->getCell(cellsId[i+1]);
-            if(upperCell == NULL && height > Utils::PIECEHEIGHT && nextCell != NULL && nextCell->isFreeUpperSpace()){
+    std::vector<Cell*> tempCells, cells;
+    Cell *currentCell, *checkCell;
+    currentCell = map->getLayer(startLayerPos)->getCell(cellsId[0]);
+    //check for path in lower layers if the current cell is NULL
+    if(currentCell == NULL){
+        //Start checking from the layer below the current one
+        for(int j = startLayerPos-1; j > 0; j--)
+            //If you find a cell underneeth the current one, rerun this method but starting from the found cell
+            if(map->getLayers()[j]->getCell(cellsId[0]) != NULL){
+                //Like this you will check the path from the found cell (where the piece can go) like if it was the current cell
                 tempCells = getPathFromIds(
-                                    map->getLayer(startLayerPos + height - Utils::PIECEHEIGHT), 
-                                    std::vector<int>(cellsId.begin() + i + 1, cellsId.end()));
+                                map->getLayer(j), 
+                                std::vector<int>(cellsId.begin(), cellsId.end()));
+                //And then you add the found path to the current one
                 cells.insert(cells.end(), tempCells.begin(), tempCells.end());
                 tempCells.clear();
                 break;
             }
-        }
-        while(bottomCell == NULL && startLayerPos - lowness >= 0){
-            lowness++;
-            bottomCell = map->getLayer(startLayerPos - lowness)->getCell(cellsId[i]);
-            if(bottomCell != NULL && lowness > Utils::PIECEHEIGHT+1 && map->getLayer(startLayerPos - lowness)->getCell(cellsId[i])->isFreeUpperSpace()){
-                tempCells = getPathFromIds(
-                                    map->getLayer(startLayerPos - lowness), 
-                                    std::vector<int>(cellsId.begin() + i, cellsId.end()));
-                cells.insert(cells.end(), tempCells.begin(), tempCells.end());
-                tempCells.clear();
-                break;
-            }
-        }
     }
+    //check for path in upper layers if the current cell is not NULL and has free space on it
+    //cellsId.size() > 1 is done because if there is only one cell in the vector it means that 
+    //we are at the edge of the map and there will be no more cells to check
+    //This part starts the recursion for every cell in the upper layers and also for the current layer
+    if(cellsId.size() > 1)
+        //Start checking from the layer where the current cell is (like this you will also check the path from the current cell) and
+        //continue vertically until there is space on top of the current cell or until you reach the top of the map
+        for(int j = 0; j <= currentCell->getFreeUpperSpace() - Utils::PIECEHEIGHT && j < map->getHeight() - startLayerPos; j++){
+            //cellsId[1] is the next cell (column of cell) the piece will go to (meanwhile cellsId[0] is the current cell)
+            checkCell = map->getLayer(startLayerPos + j)->getCell(cellsId[1]);
+            //so, for each layer you check if the next cell is not NULL and if it has enough space on top of it
+            if(checkCell != NULL && checkCell->getFreeUpperSpace() >= Utils::PIECEHEIGHT){
+                //if you find a cell that has enough space on top of it, you rerun this method but starting from the found cell
+                tempCells = getPathFromIds(
+                                    map->getLayer(startLayerPos + j), 
+                                    std::vector<int>(cellsId.begin() + 1, cellsId.end()));
+                cells.insert(cells.end(), tempCells.begin(), tempCells.end());
+                tempCells.clear();
+            }
+        }
+    //the !firstCall is to avoid the first call of the function to add the current cell to the vector 
+    // because is the cell the piece is currently stending on
+    if(currentCell != NULL && currentCell->getFreeUpperSpace() >= Utils::PIECEHEIGHT && !firstCall)
+        cells.push_back(currentCell);
     return cells;
 }

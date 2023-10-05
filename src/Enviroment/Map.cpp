@@ -21,22 +21,28 @@ Map::~Map(){
         delete this->layers[i];
 }
 
-//For every cell in every layer, check if there is enough space to put a piece
+//For every cell in every layer, set how many free spaces are above it
 void Map::setCellsFreeSpace(){
     int free = 0;
     Cell* checkingCell = this->layers[0]->getCell(0);
-    for(int pos = 0; pos < this->getLayer(0)->getSize(); pos++){
+    for(int pos = 0; pos < pow(this->getLayer(0)->getSize(), 2); pos++){
         free = 0;
-        checkingCell = this->layers[0]->getCell(pos);
+        checkingCell = NULL;
         for(int layer = 0; layer < this->height; layer++){
             if(this->layers[layer]->getCell(pos) != NULL){
-                if(layer == this->height-1) //if it is the last layer always put it free
-                    this->layers[layer]->getCell(pos)->setFreeUpperSpace(true);
-                if(free >= Utils::PIECEHEIGHT) checkingCell->setFreeUpperSpace(true);
+                if(checkingCell != NULL){
+                    //if it is the last layer always put it free
+                    if(layer == this->height-1){ 
+                        checkingCell->setFreeUpperSpace(free);
+                        this->layers[layer]->getCell(pos)->setFreeUpperSpace(Utils::INFINSPACE);
+                    }
+                    else checkingCell->setFreeUpperSpace(free);
+                }
                 free = 0;
                 checkingCell = this->layers[layer]->getCell(pos);
             }else free++;
         }
+        if(free != 0) checkingCell->setFreeUpperSpace(Utils::INFINSPACE);
     }
 }
 

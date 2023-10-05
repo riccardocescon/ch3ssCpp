@@ -40,10 +40,10 @@ void Layer::print(){
         //pirnt red if cell has a piece
         if(this->cells[i]->getPiece() != NULL){
             std::cout << "\033[1;31m";
-            std::cout << this->cells[i]->getSymbol(this->size) << " ";
+            std::cout << this->cells[i]->getSymbol() << " ";
             std::cout << "\033[0m";
         }else{
-            std::cout << this->cells[i]->getSymbol(this->size) << " ";
+            std::cout << this->cells[i]->getSymbol() << " ";
         }
         if(i%this->size == this->size-1)
             std::cout << std::endl;
@@ -55,25 +55,30 @@ void Layer::print(){
 void Layer::print(std::vector<Cell*> cells){
     bool skip = false;
     for(int i = 0; i < this->cells.size(); i++){
+        if(this->cells[i] == NULL){
+            std::cout << "[] ";
+            if(i%this->size == this->size-1)
+            std::cout << std::endl;
+            continue;
+        }
         for(auto cell: cells){
             //print yellow if cell is in the vector
             if(this->cells[i] == cell){
-                std::cout << "\033[1;36m";
-                std::cout << this->cells[i]->getSymbol(this->size) << " ";
-                std::cout << "\033[0m";
+                    std::cout << "\033[1;35m";
+                    std::cout << this->cells[i]->getSymbol() << " ";
+                    std::cout << "\033[0m";
                 skip = true;
                 break;
             }
         }
         if(skip){
             skip = false;
-            continue;
         }else if(this->cells[i]->getPiece() != NULL){
             std::cout << "\033[1;31m";
-            std::cout << this->cells[i]->getSymbol(this->size) << " ";
+            std::cout << this->cells[i]->getSymbol() << " ";
             std::cout << "\033[0m";
         }else{
-            std::cout << this->cells[i]->getSymbol(this->size) << " ";
+            std::cout << this->cells[i]->getSymbol() << " ";
         }
         if(i%this->size == this->size-1)
             std::cout << std::endl;

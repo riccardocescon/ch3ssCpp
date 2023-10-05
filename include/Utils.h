@@ -24,7 +24,9 @@ namespace Utils{
         CHECKMATE
     };
 
-    const int PIECEHEIGHT = 2;
+    const int PIECEHEIGHT = 1;
+
+    const int INFINSPACE = 100;
 }
 
 #endif
