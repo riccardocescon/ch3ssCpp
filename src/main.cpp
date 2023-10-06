@@ -2,6 +2,7 @@
 #include <vector>
 #include "../include/API/fsm.h"
 #include "../include/Pieces/Bishop.h"
+#include "../include/Pieces/Rook.h"
 
 int main(){
     FSM fsm;
@@ -26,7 +27,8 @@ int main(){
             cells2.push_back(new Cell(i, 8));
         else cells2.push_back(NULL);
     }
-    Bishop *piece = new Bishop();
+    //Bishop *piece = new Bishop();
+    Rook *piece = new Rook();
     cells[30]->setPiece(piece);
     std::vector<Layer*> layer {new Layer(cells), new Layer(cells1), new Layer(cells2)};
     Map* map = new Map(layer);

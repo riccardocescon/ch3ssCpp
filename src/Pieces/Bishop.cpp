@@ -12,7 +12,6 @@ Bishop::~Bishop()
 std::vector<std::vector<int>> Bishop::getMoves(int position, int mapLength)
 {
     int secondDiagonal = mapLength+1, mainDiagonal = mapLength-1;
-    int checkPosition = position; 
     std::vector<int> validCells;
     std::vector<std::vector<int>> validCellsByDirection;
     // Bottom left
