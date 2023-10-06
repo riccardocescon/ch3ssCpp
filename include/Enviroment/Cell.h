@@ -6,7 +6,7 @@ class Cell
 {
     private:
         int pos;
-        CPiece *piece;
+        CPiece *piece = NULL;
         int freeUpperSpace;
         std::string symbol;
     public:

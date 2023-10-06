@@ -1,12 +1,12 @@
 #include "../../include/Enviroment/Cell.h"
 #include <iostream>
 
-Cell::Cell(): pos(0), piece(NULL), freeUpperSpace(0)
+Cell::Cell(): pos(0), freeUpperSpace(0)
 {
 }
 
 //Layer size nedeed to get the cell symbol(Just to debug, not used in the game)
-Cell::Cell(int pos, int layerSize): pos(pos), piece(NULL), freeUpperSpace(0)
+Cell::Cell(int pos, int layerSize): pos(pos), freeUpperSpace(0)
 {
     symbol = getCellSymbol(layerSize);
 }
