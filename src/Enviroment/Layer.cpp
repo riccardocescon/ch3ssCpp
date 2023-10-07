@@ -64,9 +64,15 @@ void Layer::print(std::vector<Cell*> cells){
         for(auto cell: cells){
             //print yellow if cell is in the vector
             if(this->cells[i] == cell){
+                if(this->cells[i]->getPiece() == NULL){
                     std::cout << "\033[1;35m";
                     std::cout << this->cells[i]->getSymbol() << " ";
                     std::cout << "\033[0m";
+                }else if(this->cells[i]->getPiece() != NULL){
+                    std::cout << "\033[1;33m";
+                    std::cout << this->cells[i]->getSymbol() << " ";
+                    std::cout << "\033[0m";
+                }
                 skip = true;
                 break;
             }
