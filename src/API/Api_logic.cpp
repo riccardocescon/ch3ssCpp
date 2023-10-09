@@ -11,13 +11,19 @@ std::vector<Cell *> Api_logic::selectCells(Cell *cell)
 {
     std::vector<Cell *> cells;
     Layer *layer = map->findLayer(cell);
-    if (cell->getPiece() == NULL)
+    CPiece *piece = cell->getPiece();
+    if (piece == NULL)
         return cells;
-    std::vector<std::vector<int>> CellsId = cell->getPiece()->getMoves(cell->getPos(), layer->getSize());
+    std::vector<std::vector<int>> CellsId = piece->getMoves(cell->getPos(), layer->getSize());
     for (int i = 0; i < CellsId.size(); i++)
     {
-        getPathFromIds(&cells, layer, CellsId[i], cell->getPiece()->getColor(), true);
+        getPathFromIds(&cells, layer, CellsId[i], piece->getColor(), true);
     }
+    if (piece->getType() == Utils::PieceType::PAWN)
+    {
+        handlePawnAttack(piece, &cells, cell);
+    }
+
     for (auto cell : cells)
     {
         cell->setCheck(false);
@@ -120,3 +126,23 @@ void Api_logic::checkLowerPath(std::vector<Cell *> *cells, int startLayerPos, st
         return;
     }
 }
+
+// #region Piece Helpers
+void Api_logic::handlePawnAttack(CPiece *piece, std::vector<Cell *> *cells, Cell *cell)
+{
+    int mapSize = map->getLayer(0)->getSize();
+    int colorMultiplier = piece->getColor() == Utils::Color::WHITE ? 1 : -1;
+    for (int i = 0; i < cells->size(); i++)
+    {
+        bool isStraight = (*cells)[i]->getPos() % mapSize == (cell->getPos() + (mapSize * colorMultiplier)) % mapSize;
+        bool hasPiece = (*cells)[i]->getPiece() != NULL;
+        if (isStraight && hasPiece){
+            cells->erase(cells->begin() + i);
+            i--;
+        }else if (!isStraight && !hasPiece){
+            cells->erase(cells->begin() + i);
+            i--;
+        }
+    }
+}
+// #endregion
