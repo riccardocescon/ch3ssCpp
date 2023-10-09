@@ -1,6 +1,6 @@
 #include "../../include/Pieces/Rook.h"
 
-Rook::Rook()
+Rook::Rook(Utils::Color color): CPiece(color)
 {
     this->value = Utils::PieceType::ROOK;
 }

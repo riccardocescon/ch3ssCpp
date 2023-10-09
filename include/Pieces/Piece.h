@@ -7,12 +7,14 @@
 class CPiece
 {
 public:
-    CPiece();
+    CPiece(Utils::Color color);
     ~CPiece();
     int getValue();
     virtual std::vector<std::vector<int>> getMoves(int position, int mapLength) = 0;
+    Utils::Color getColor();
 protected:
     Utils::PieceType value;
+    Utils::Color color;
 };
 
 #endif

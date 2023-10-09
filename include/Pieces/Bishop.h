@@ -5,7 +5,7 @@
 class Bishop : public CPiece
 {
 public:
-    Bishop();
+    Bishop(Utils::Color color);
     ~Bishop();
     std::vector<std::vector<int>> getMoves(int position, int mapLength);
 };

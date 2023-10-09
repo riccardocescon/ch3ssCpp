@@ -1,6 +1,6 @@
 #include "../../include/Pieces/Bishop.h"
 
-Bishop::Bishop(): CPiece()
+Bishop::Bishop(Utils::Color color): CPiece(color)
 {
     this->value = Utils::PieceType::BISHOP;
 }

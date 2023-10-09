@@ -14,7 +14,7 @@ std::vector<Cell*> Api_logic::selectCells(Cell* cell){
     std::vector<std::vector<int>> CellsId = cell->getPiece()->getMoves(cell->getPos(), layer->getSize());
     std::vector<Cell*> tempCells;
     for(int i = 0; i < CellsId.size(); i++){
-        tempCells = getPathFromIds(layer, CellsId[i], true);
+        tempCells = getPathFromIds(layer, CellsId[i], cell->getPiece()->getColor(), true);
         cells.insert(cells.end(), tempCells.begin(), tempCells.end());
         tempCells.clear();
     }
@@ -25,7 +25,7 @@ std::vector<Cell*> Api_logic::selectCells(Cell* cell){
 }
 
 
-std::vector<Cell*> Api_logic::getPathFromIds(Layer* startLayer, std::vector<int> cellsId, bool firstCall = false){
+std::vector<Cell*> Api_logic::getPathFromIds(Layer* startLayer, std::vector<int> cellsId, Utils::Color color, bool firstCall = false){
     int startLayerPos = map->getLayerPos(startLayer);
     bool frontSpace = true;
     std::vector<Cell*> tempCells, cells;
@@ -40,17 +40,16 @@ std::vector<Cell*> Api_logic::getPathFromIds(Layer* startLayer, std::vector<int>
     if(!firstCall) currentCell->setCheck(true);
     //If the current cell has a piece on it, and it's not the cell where the selected piece is standing (!firstcall), add it to the vector and return it
     if(currentCell->getPiece() != NULL && !firstCall){
-        //!Add check for the piece color, if enemy add the cell to the vector, else return the empty vector
-        cells.push_back(currentCell);
+        if(currentCell->getPiece()->getColor() != color)cells.push_back(currentCell);
         return cells;
     }
     //If there is something to check after the current cell, check it
     if(cellsId.size() > 1){
-        tempCells = checkUpperPath(currentCell, cellsId, startLayerPos, &frontSpace, firstCall);
+        tempCells = checkUpperPath(currentCell, cellsId, startLayerPos, color, &frontSpace, firstCall);
         cells.insert(cells.end(), tempCells.begin(), tempCells.end());
         tempCells.clear();
 
-        tempCells = checkLowerPath(startLayerPos, cellsId, frontSpace);
+        tempCells = checkLowerPath(startLayerPos, cellsId, color, frontSpace);
         cells.insert(cells.end(), tempCells.begin(), tempCells.end());
         tempCells.clear();
     }
@@ -61,7 +60,7 @@ std::vector<Cell*> Api_logic::getPathFromIds(Layer* startLayer, std::vector<int>
     return cells;
 }
 
-std::vector<Cell*> Api_logic::checkUpperPath(Cell* currentCell, std::vector<int> cellsId, int startLayerPos, bool* frontSpace, bool firstCall = false){
+std::vector<Cell*> Api_logic::checkUpperPath(Cell* currentCell, std::vector<int> cellsId, int startLayerPos, Utils::Color color, bool* frontSpace, bool firstCall = false){
     Cell *checkCell;
     std::vector<Cell*> tempCells, cells;
     //check for path in upper layers if the current cell is not NULL and has free space on it
@@ -80,7 +79,8 @@ std::vector<Cell*> Api_logic::checkUpperPath(Cell* currentCell, std::vector<int>
                 //if you find a cell that has enough space on top of it, you rerun getPathFromIds method but starting from the found cell
                 tempCells = getPathFromIds(
                                     map->getLayer(startLayerPos + elevate), 
-                                    std::vector<int>(cellsId.begin() + 1, cellsId.end()));
+                                    std::vector<int>(cellsId.begin() + 1, cellsId.end()),
+                                    color);
                 cells.insert(cells.end(), tempCells.begin(), tempCells.end());
                 tempCells.clear();
             }
@@ -88,7 +88,7 @@ std::vector<Cell*> Api_logic::checkUpperPath(Cell* currentCell, std::vector<int>
     return cells;
 }
 
-std::vector<Cell*> Api_logic::checkLowerPath(int startLayerPos, std::vector<int> cellsId, bool frontSpace){
+std::vector<Cell*> Api_logic::checkLowerPath(int startLayerPos, std::vector<int> cellsId, Utils::Color color, bool frontSpace){
     Cell *checkCell;
     if(frontSpace)
         //check for path in lower layers, underneath the next cell, only if there is enough space in front of the current cell to let the piece pass and go down
@@ -99,7 +99,8 @@ std::vector<Cell*> Api_logic::checkLowerPath(int startLayerPos, std::vector<int>
                 //Like this you will check the path from the found cell (where the piece can go) like if it was the current cell
                 return getPathFromIds(
                                 map->getLayer(lowerLayer), 
-                                std::vector<int>(cellsId.begin() + 1, cellsId.end()));
+                                std::vector<int>(cellsId.begin() + 1, cellsId.end()),
+                                color);
             }
         }
     return std::vector<Cell*>();

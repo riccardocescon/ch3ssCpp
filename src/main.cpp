@@ -30,9 +30,9 @@ int main(){
             cells2.push_back(new Cell(i, 8));
         else cells2.push_back(NULL);
     }
-    Bishop *bishop = new Bishop();
-    Rook *rook1 = new Rook();
-    Rook *rook2 = new Rook();
+    Bishop *bishop = new Bishop(Utils::Color::WHITE);
+    Rook *rook1 = new Rook(Utils::Color::BLACK);
+    Rook *rook2 = new Rook(Utils::Color::BLACK);
     cells[26]->setPiece(bishop);
     cells2[30]->setPiece(rook1);
     cells[14]->setPiece(rook2);
@@ -41,18 +41,18 @@ int main(){
     api.setMap(map);
     std::vector<Cell*> cells3 = api.selectCells(cells2[30]);
 
-/*     clock_t start, end;
+    clock_t start, end;
     double cpu_time_used;
     start = clock();
 
     for(int i = 100; i < 100000; i++)
-        cells3 = api.selectCells(cells[30]);
+        api.selectCells(cells2[30]);
 
     end = clock();
     cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
     std::cout << "Time: " << cpu_time_used << std::endl << "Avarage time per check: " << cpu_time_used / 100000 << std::endl;
 
- */
+
     map->print(cells3);
     return 0;
 }

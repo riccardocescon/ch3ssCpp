@@ -3,7 +3,7 @@
 class Rook : public CPiece
 {
     public:
-    Rook();
+    Rook(Utils::Color color);
     ~Rook();
     std::vector<std::vector<int>> getMoves(int position, int mapLength);
 };
