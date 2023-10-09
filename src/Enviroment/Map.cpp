@@ -30,14 +30,11 @@ void Map::setCellsFreeSpace(){
         checkingCell = NULL;
         for(int layer = 0; layer < this->height; layer++){
             if(this->layers[layer]->getCell(pos) != NULL){
-                if(checkingCell != NULL){
-                    //if it is the last layer always put it free
-                    if(layer == this->height-1){ 
-                        checkingCell->setFreeUpperSpace(free);
-                        this->layers[layer]->getCell(pos)->setFreeUpperSpace(Utils::INFINSPACE);
-                    }
-                    else checkingCell->setFreeUpperSpace(free);
-                }
+                //if it is the last layer always put it free
+                if(layer == this->height-1)
+                    this->layers[layer]->getCell(pos)->setFreeUpperSpace(Utils::INFINSPACE);
+                if(checkingCell != NULL)
+                    checkingCell->setFreeUpperSpace(free);
                 free = 0;
                 checkingCell = this->layers[layer]->getCell(pos);
             }else free++;
