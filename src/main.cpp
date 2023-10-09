@@ -37,8 +37,8 @@ int main(){
     Map* map = new Map(layer);
     api.setMap(map);
     std::vector<Cell*> cells3 = api.selectCells(cells[30]);
-/* 
-    clock_t start, end;
+
+/*     clock_t start, end;
     double cpu_time_used;
     start = clock();
 

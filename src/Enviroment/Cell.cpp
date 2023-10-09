@@ -1,17 +1,17 @@
 #include "../../include/Enviroment/Cell.h"
 #include <iostream>
 
-Cell::Cell(): pos(0), freeUpperSpace(0)
+Cell::Cell(): pos(0), freeUpperSpace(0), check(false)
 {
 }
 
 //Layer size nedeed to get the cell symbol(Just to debug, not used in the game)
-Cell::Cell(int pos, int layerSize): pos(pos), freeUpperSpace(0)
+Cell::Cell(int pos, int layerSize): pos(pos), freeUpperSpace(0), check(false)
 {
     symbol = getCellSymbol(layerSize);
 }
 
-Cell::Cell(int pos, CPiece *piece, int layerSize): pos(pos), piece(piece), freeUpperSpace(0)
+Cell::Cell(int pos, CPiece *piece, int layerSize): pos(pos), piece(piece), freeUpperSpace(0), check(false)
 {
     symbol = getCellSymbol(layerSize);
 }
@@ -72,4 +72,12 @@ void Cell::setFreeUpperSpace(int space){
 
 int Cell::getFreeUpperSpace(){
     return this->freeUpperSpace;
+}
+
+bool Cell::isCheck(){
+    return this->check;
+}
+
+void Cell::setCheck(bool check){
+    this->check = check;
 }

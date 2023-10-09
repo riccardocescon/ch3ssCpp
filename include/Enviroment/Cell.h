@@ -9,6 +9,7 @@ class Cell
         CPiece *piece = NULL;
         int freeUpperSpace;
         std::string symbol;
+        bool check = 0;
     public:
         Cell();
         Cell(int pos, int layerSize);
@@ -23,6 +24,8 @@ class Cell
         void setFreeUpperSpace(int space);
         int getFreeUpperSpace();
         std::string getSymbol();
+        bool isCheck();
+        void setCheck(bool check);
 };
 
 #endif
