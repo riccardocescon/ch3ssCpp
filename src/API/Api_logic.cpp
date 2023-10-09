@@ -40,7 +40,8 @@ void Api_logic::getPathFromIds(std::vector<Cell*> *cells, Layer* startLayer, std
         if(currentCell->getPiece()->getColor() != color)cells->push_back(currentCell);
         return;
     }
-    //If there is something to check after the current cell, check it
+    //cellsId.size() > 1 is done because if there is only one cell in the vector it means that 
+    //we are at the edge of the map and there are be no more cells to check in that direction
     if(cellsId.size() > 1){
         checkUpperPath(cells, currentCell, cellsId, startLayerPos, color, &frontSpace, firstCall);
 
@@ -55,10 +56,8 @@ void Api_logic::getPathFromIds(std::vector<Cell*> *cells, Layer* startLayer, std
 
 void Api_logic::checkUpperPath(std::vector<Cell*> *cells, Cell* currentCell, std::vector<int> cellsId, int startLayerPos, Utils::Color color, bool* frontSpace, bool firstCall = false){
     Cell *checkCell;
-    //check for path in upper layers if the current cell is not NULL and has free space on it
-    //cellsId.size() > 1 is done because if there is only one cell in the vector it means that 
-    //we are at the edge of the map and there will be no more cells to check
-    //This part starts the recursion for every cell in the upper layers (and one cell ahead) and also for the current layer
+    //check for path in upper layers if the current cell is not NULL
+    //This part starts the recursion for every cell that is one column ahead in the upper layers and also in the current layer
     if(currentCell->getPiece() == NULL || firstCall)
         //Start checking from the layer where the current cell is (like this you will also check the path from the current cell) and
         //continue vertically until there is space on top of the current cell or until you reach the top of the map

@@ -25,7 +25,7 @@ int main(){
         cells1.push_back(new Cell(i, 8));
     }
     for(int i = 0; i < 64; i++){
-        if(i == 30 || i == 14 || i == 28) // does not work until fixed the bug off checking next cell if NULL in Api_logic
+        if(i == 30 || i == 14 || i == 28)
         //if(i == 30)
             cells2.push_back(new Cell(i, 8));
         else cells2.push_back(NULL);
@@ -45,7 +45,7 @@ int main(){
     double cpu_time_used;
     start = clock();
 
-    for(int i = 100; i < 100000; i++)
+    for(int i = 100; i < 500000; i++)
         api.selectCells(cells2[30]);
 
     end = clock();
