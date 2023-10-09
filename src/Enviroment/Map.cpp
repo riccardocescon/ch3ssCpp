@@ -49,7 +49,7 @@ void Map::setCellsFreeSpace()
             else
                 free++;
         }
-        if (free != 0)
+        if (checkingCell != NULL && free != 0)
             checkingCell->setFreeUpperSpace(Utils::INFINSPACE);
     }
 }

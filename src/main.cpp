@@ -33,7 +33,7 @@ int main()
     }
     for (int i = 0; i < 64; i++)
     {
-        if (i == 30 || i == 14 || i == 28)
+        if (i == 30 || i == 14)
             // if(i == 30)
             cells2.push_back(new Cell(i, 8));
         else
@@ -54,13 +54,13 @@ int main()
     double cpu_time_used;
     start = clock();
 
-    for (int i = 100; i < 100000; i++)
+    for (int i = 100; i < 500000; i++)
         api.selectCells(cells2[30]);
 
     end = clock();
     cpu_time_used = ((double)(end - start)) / CLOCKS_PER_SEC;
     std::cout << "Time: " << cpu_time_used << std::endl
-              << "Avarage time per check: " << cpu_time_used / 100000 << std::endl;
+              << "Avarage time per check: " << cpu_time_used / 500000 << std::endl;
 
     map->print(cells3);
     return 0;

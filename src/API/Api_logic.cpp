@@ -73,7 +73,8 @@ void Api_logic::checkUpperPath(std::vector<Cell *> *cells, Cell *currentCell, st
     // Start checking from the layer where the current cell is (like this you will also check the path from the current cell) and
     // continue vertically until there is space on top of the current cell or until you reach the top of the map
     int lastLayer = map->getHeight() - startLayerPos;
-    for (int elevate = 0; elevate <= currentCell->getFreeUpperSpace() - Utils::PIECEHEIGHT && elevate < lastLayer; elevate++)
+    int maxElevate = currentCell->getFreeUpperSpace() - Utils::PIECEHEIGHT;
+    for (int elevate = 0; elevate <= maxElevate && elevate < lastLayer; elevate++)
     {
         // cellsId[1] is the next cell (column of cell) the piece will go to (meanwhile cellsId[0] is the current cell)
         checkCell = map->getLayer(startLayerPos + elevate)->getCell(cellsId[1]);
