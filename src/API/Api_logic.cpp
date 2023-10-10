@@ -8,6 +8,17 @@ void Api_logic::setMap(Map *copyMap)
     map = copyMap;
 }
 
+//    a  b  c  d  e  f  g  h
+// -----------------------
+// 1 | 00 01 02 03 04 05 06 07
+// 2 | 08 09 10 11 12 13 14 15
+// 3 | 16 17 18 19 20 21 22 23
+// 4 | 24 25 26 27 28 29 30 31
+// 5 | 32 33 34 35 36 37 38 39
+// 6 | 40 41 42 43 44 45 46 47
+// 7 | 48 49 50 51 52 53 54 55
+// 8 | 56 57 58 59 60 61 62 63
+
 std::vector<Cell *> Api_logic::selectCells(Cell *cell)
 {
     std::vector<Cell *> cells;
@@ -55,6 +66,7 @@ void Api_logic::getPathFromIds(std::vector<Cell *> *cells, Layer *startLayer, st
     if (!firstCall)
         currentCell->setCheck(true);
     // If the current cell has a piece on it, and it's not the cell where the selected piece is standing (!firstcall), add it to the vector and return it
+    //! TO ADD THAT IF THE PIECE WE WANT TO MOVE IS A KNIGHT INSTEAD OF RETURN JUST DON'T ADD THE CELL BUT EXECUTE THE REST OF THE CODE
     if (currentCell->getPiece() != NULL && !firstCall)
     {
         if (currentCell->getPiece()->getColor() != color)

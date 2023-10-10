@@ -211,8 +211,8 @@ namespace Moves
             validCells2.push_back(position);
             targetCell = position - mapLength - 2;
             for(int i = 0; i < 2; i++){
-                validCells.push_back(position - i - 2);
-                validCells2.push_back(position - (i+1) * mapLength);
+                validCells.push_back(position - i - 1);
+                validCells2.push_back(position - mapLength - i );
             }
             validCells.push_back(targetCell);
             validCells2.push_back(targetCell);
@@ -227,8 +227,8 @@ namespace Moves
             validCells2.push_back(position);
             targetCell = position - mapLength + 2;
             for(int i = 0; i < 2; i++){
-                validCells.push_back(position - i + 2);
-                validCells2.push_back(position - (i+1) * mapLength);
+                validCells.push_back(position + i + 1);
+                validCells2.push_back(position - mapLength + i );
             }
             validCells.push_back(targetCell);
             validCells2.push_back(targetCell);
@@ -243,8 +243,8 @@ namespace Moves
             validCells2.push_back(position);
             targetCell = position + mapLength - 2;
             for(int i = 0; i < 2; i++){
-                validCells.push_back(position + i - 2);
-                validCells2.push_back(position + (i+1) * mapLength);
+                validCells.push_back(position - i - 1);
+                validCells2.push_back(position + mapLength - i );
             }
             validCells.push_back(targetCell);
             validCells2.push_back(targetCell);
@@ -259,8 +259,8 @@ namespace Moves
             validCells2.push_back(position);
             targetCell = position + mapLength + 2;
             for(int i = 0; i < 2; i++){
-                validCells.push_back(position + i + 2);
-                validCells2.push_back(position + (i+1)* mapLength);
+                validCells.push_back(position + i +1);
+                validCells2.push_back(position + mapLength + i );
             }
             validCells.push_back(targetCell);
             validCells2.push_back(targetCell);
