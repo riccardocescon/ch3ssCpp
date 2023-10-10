@@ -10,9 +10,10 @@ class CPiece
 public:
     CPiece(Utils::Color color);
     ~CPiece();
-    virtual std::vector<std::vector<int>> getMoves(int position, int mapLength) = 0;
+    virtual std::vector<int> getAttackMoves(int position, int mapLength);
     Utils::Color getColor();
     Utils::PieceType getType();
+    virtual std::vector<std::vector<int>> getMoves(int position, int mapLength) = 0;
 
 protected:
     Utils::PieceType type;

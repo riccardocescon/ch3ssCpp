@@ -1,4 +1,5 @@
 #include "../../include/API/Api_logic.h"
+#include <algorithm>
 
 Map *Api_logic::map = NULL;
 
@@ -18,10 +19,17 @@ std::vector<Cell *> Api_logic::selectCells(Cell *cell)
     for (int i = 0; i < CellsId.size(); i++)
     {
         getPathFromIds(&cells, layer, CellsId[i], piece->getColor(), true);
+        if(piece->getType() == Utils::KNIGHT && i % 2 == 1){
+            for(auto cell : cells)
+                cell->setCheck(false);
+        }
     }
     if (piece->getType() == Utils::PieceType::PAWN)
     {
         handlePawnAttack(piece, &cells, cell);
+    }
+    if(piece->getType() == Utils::PieceType::KNIGHT){
+        handleKnightAttack(piece, &cells, cell);
     }
 
     for (auto cell : cells)
@@ -145,4 +153,14 @@ void Api_logic::handlePawnAttack(CPiece *piece, std::vector<Cell *> *cells, Cell
         }
     }
 }
-// #endregion
+
+void Api_logic::handleKnightAttack(CPiece *piece, std::vector<Cell *> *cells, Cell *cell)
+{
+    int mapSize = map->getLayer(0)->getSize();
+    std::vector<int> cellsIdValid = (piece)->getAttackMoves(cell->getPos(), mapSize);
+    for(int i = 0; i < cells->size(); i++){
+        if(std::find(cellsIdValid.begin(), cellsIdValid.end(), (*cells)[i]->getPos()) != cellsIdValid.end())continue;
+        cells->erase(cells->begin() + i);
+        i--;
+    }
+}

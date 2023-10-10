@@ -167,6 +167,179 @@ namespace Moves
             }
         }
         return validCellsByDirection;
+    };
+
+    inline std::vector<std::vector<int>> knight(int position, int mapLength){
+        std::vector<int> validCells, validCells2;
+        std::vector<std::vector<int>> validCellsByDirection;
+        int targetCell = 0;
+        //FL
+        if ((position - 2 * mapLength - 1) >= 0 && (position - 2 * mapLength - 1) % mapLength != mapLength - 1){
+            validCells.push_back(position);
+            validCells2.push_back(position);
+            targetCell = position - 2 * mapLength - 1;
+            for(int i = 0; i < 2; i++){
+                validCells.push_back(position - i * mapLength - 1);
+                validCells2.push_back(position - (i+1) * mapLength);
+            }
+            validCells.push_back(targetCell);
+            validCells2.push_back(targetCell);
+            validCellsByDirection.push_back(validCells);
+            validCellsByDirection.push_back(validCells2);
+            validCells.clear();
+            validCells2.clear();
+        }
+        //FR
+        if((position - 2 * mapLength + 1) >= 0 && (position - 2 * mapLength + 1) % mapLength != 0){
+            validCells.push_back(position);
+            validCells2.push_back(position);
+            targetCell = position - 2 * mapLength + 1;
+            for(int i = 0; i < 2; i++){
+                validCells.push_back(position - i * mapLength + 1);
+                validCells2.push_back(position - (i+1) * mapLength);
+            }
+            validCells.push_back(targetCell);
+            validCells2.push_back(targetCell);
+            validCellsByDirection.push_back(validCells);
+            validCellsByDirection.push_back(validCells2);
+            validCells.clear();
+            validCells2.clear();
+        }
+        //LF
+        if((position - mapLength - 2) >= 0 && (position - mapLength - 2) % mapLength != mapLength - 1){
+            validCells.push_back(position);
+            validCells2.push_back(position);
+            targetCell = position - mapLength - 2;
+            for(int i = 0; i < 2; i++){
+                validCells.push_back(position - i - 2);
+                validCells2.push_back(position - (i+1) * mapLength);
+            }
+            validCells.push_back(targetCell);
+            validCells2.push_back(targetCell);
+            validCellsByDirection.push_back(validCells);
+            validCellsByDirection.push_back(validCells2);
+            validCells.clear();
+            validCells2.clear();
+        }
+        //RF
+        if((position - mapLength + 2) >= 0 && (position - mapLength + 2) % mapLength != 0){
+            validCells.push_back(position);
+            validCells2.push_back(position);
+            targetCell = position - mapLength + 2;
+            for(int i = 0; i < 2; i++){
+                validCells.push_back(position - i + 2);
+                validCells2.push_back(position - (i+1) * mapLength);
+            }
+            validCells.push_back(targetCell);
+            validCells2.push_back(targetCell);
+            validCellsByDirection.push_back(validCells);
+            validCellsByDirection.push_back(validCells2);
+            validCells.clear();
+            validCells2.clear();
+        }
+        //LB
+        if((position + mapLength - 2) < mapLength * mapLength && (position + mapLength - 2) % mapLength != mapLength - 1){
+            validCells.push_back(position);
+            validCells2.push_back(position);
+            targetCell = position + mapLength - 2;
+            for(int i = 0; i < 2; i++){
+                validCells.push_back(position + i - 2);
+                validCells2.push_back(position + (i+1) * mapLength);
+            }
+            validCells.push_back(targetCell);
+            validCells2.push_back(targetCell);
+            validCellsByDirection.push_back(validCells);
+            validCellsByDirection.push_back(validCells2);
+            validCells.clear();
+            validCells2.clear();
+        }
+        //RB
+        if((position + mapLength + 2) < mapLength * mapLength && (position + mapLength + 2) % mapLength != 0){
+            validCells.push_back(position);
+            validCells2.push_back(position);
+            targetCell = position + mapLength + 2;
+            for(int i = 0; i < 2; i++){
+                validCells.push_back(position + i + 2);
+                validCells2.push_back(position + (i+1)* mapLength);
+            }
+            validCells.push_back(targetCell);
+            validCells2.push_back(targetCell);
+            validCellsByDirection.push_back(validCells);
+            validCellsByDirection.push_back(validCells2);
+            validCells.clear();
+            validCells2.clear();
+        }
+        //BL
+        if((position + 2 * mapLength - 1) < mapLength * mapLength && (position + 2 * mapLength - 1) % mapLength != mapLength - 1){
+            validCells.push_back(position);
+            validCells2.push_back(position);
+            targetCell = position + 2 * mapLength - 1;
+            for(int i = 0; i < 2; i++){
+                validCells.push_back(position + i * mapLength - 1);
+                validCells2.push_back(position + (i+1) * mapLength);
+            }
+            validCells.push_back(targetCell);
+            validCells2.push_back(targetCell);
+            validCellsByDirection.push_back(validCells);
+            validCellsByDirection.push_back(validCells2);
+            validCells.clear();
+            validCells2.clear();
+        }
+        //BR
+        if((position + 2 * mapLength + 1) < mapLength * mapLength && (position + 2 * mapLength + 1) % mapLength != 0){
+            validCells.push_back(position);
+            validCells2.push_back(position);
+            targetCell = position + 2 * mapLength + 1;
+            for(int i = 0; i < 2; i++){
+                validCells.push_back(position + i * mapLength + 1);
+                validCells2.push_back(position + (i+1) * mapLength);
+            }
+            validCells.push_back(targetCell);
+            validCells2.push_back(targetCell);
+            validCellsByDirection.push_back(validCells);
+            validCellsByDirection.push_back(validCells2);
+        }
+        return validCellsByDirection;
+
+    }
+
+    inline std::vector<int> knightAttack(int position, int mapLength){
+        std::vector<int> validCellsByDirection;
+        int targetCell = 0;
+        //FL
+        if ((position - 2 * mapLength - 1) >= 0 && (position - 2 * mapLength - 1) % mapLength != mapLength - 1){
+            validCellsByDirection.push_back( position - 2 * mapLength - 1);
+        }
+        //FR
+        if((position - 2 * mapLength + 1) >= 0 && (position - 2 * mapLength + 1) % mapLength != 0){
+            validCellsByDirection.push_back(position - 2 * mapLength + 1);
+        }
+        //LF
+        if((position - mapLength - 2) >= 0 && (position - mapLength - 2) % mapLength != mapLength - 1){
+            validCellsByDirection.push_back(position - mapLength - 2);
+        }
+        //RF
+        if((position - mapLength + 2) >= 0 && (position - mapLength + 2) % mapLength != 0){
+            validCellsByDirection.push_back(position - mapLength + 2);
+        }
+        //LB
+        if((position + mapLength - 2) < mapLength * mapLength && (position + mapLength - 2) % mapLength != mapLength - 1){
+            validCellsByDirection.push_back(position + mapLength - 2);
+        }
+        //RB
+        if((position + mapLength + 2) < mapLength * mapLength && (position + mapLength + 2) % mapLength != 0){
+            validCellsByDirection.push_back(position + mapLength + 2);
+        }
+        //BL
+        if((position + 2 * mapLength - 1) < mapLength * mapLength && (position + 2 * mapLength - 1) % mapLength != mapLength - 1){
+            validCellsByDirection.push_back(position + 2 * mapLength - 1);
+        }
+        //BR
+        if((position + 2 * mapLength + 1) < mapLength * mapLength && (position + 2 * mapLength + 1) % mapLength != 0){
+            validCellsByDirection.push_back(position + 2 * mapLength + 1);
+        }
+        return validCellsByDirection;
+
     }
 
 } // namespace Moves

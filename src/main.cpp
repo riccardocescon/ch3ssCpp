@@ -4,6 +4,7 @@
 #include "../include/Pieces/Bishop.h"
 #include "../include/Pieces/Rook.h"
 #include "../include/Pieces/Pawn.h"
+#include "../include/Pieces/Knight.h"
 
 //    a  b  c  d  e  f  g  h
 // -----------------------
@@ -48,20 +49,22 @@ int main()
         else
             cells2.push_back(NULL);
     }
-    Bishop *bishop = new Bishop(Utils::Color::WHITE);
+    Bishop *bishop = new Bishop(Utils::Color::BLACK);
     Rook *rook1 = new Rook(Utils::Color::BLACK);
     Rook *rook2 = new Rook(Utils::Color::BLACK);
     Pawn *pawn = new Pawn(Utils::Color::WHITE);
-    cells[43]->setPiece(bishop);
-    cells[20]->setPiece(rook1);
+    Knight *knight = new Knight(Utils::Color::WHITE);
+    cells[36]->setPiece(bishop);
+    cells[44]->setPiece(rook1);
     cells2[18]->setPiece(rook2);
     cells[11]->setPiece(pawn);
+    cells[45]->setPiece(knight);
     std::vector<Layer *> layer{new Layer(cells), new Layer(cells1), new Layer(cells2)};
     Map *map = new Map(layer);
     api.setMap(map);
-    std::vector<Cell *> cells3 = api.selectCells(cells[11]);
+    std::vector<Cell *> cells3 = api.selectCells(cells[45]);
 
-    /*     clock_t start, end;
+        clock_t start, end;
         double cpu_time_used;
         start = clock();
 
@@ -72,7 +75,7 @@ int main()
         cpu_time_used = ((double)(end - start)) / CLOCKS_PER_SEC;
         std::cout << "Time: " << cpu_time_used << std::endl
                   << "Avarage time per check: " << cpu_time_used / 500000 << std::endl;
-     */
+    
     map->print(cells3);
     return 0;
 }

@@ -17,3 +17,8 @@ Utils::PieceType CPiece::getType()
 {
     return this->type;
 }
+
+std::vector<int> CPiece::getAttackMoves(int position, int mapLength)
+{
+    return std::vector<int>();
+}

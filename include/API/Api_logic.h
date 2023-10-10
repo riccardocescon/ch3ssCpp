@@ -17,6 +17,7 @@ public:
     static void checkUpperPath(std::vector<Cell *> *cells, Cell *currentCell, std::vector<int> cellsId, int startLayerPos, Utils::Color color, bool *frontSpace, bool firstCall);
     static void checkLowerPath(std::vector<Cell *> *cells, int startLayerPos, std::vector<int> cellsId, Utils::Color color, bool frontSpace);
     static void handlePawnAttack(CPiece *piece, std::vector<Cell *> *cells, Cell *cell);
+    static void handleKnightAttack(CPiece *piece, std::vector<Cell *> *cells, Cell *cell);
 };
 
 #endif
