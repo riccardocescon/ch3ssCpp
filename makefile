@@ -6,7 +6,7 @@ CXXFLAGS := -std=c++14 -I$(INCLUDE_DIR) -g
 TARGET := Ch3ss
 
 # Trova tutti i file .cpp nelle sotto-cartelle
-SRCS := $(wildcard $(SRC_DIR)/Pieces/*.cpp) \
+SRCS :=	$(wildcard $(SRC_DIR)/Pieces/*.cpp) \
 	$(wildcard $(SRC_DIR)/Enviroment/*.cpp) \
 	$(wildcard $(SRC_DIR)/API/*.cpp) \
 	$(wildcard $(SRC_DIR)/*.cpp)

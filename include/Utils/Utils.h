@@ -2,22 +2,26 @@
 
 #pragma once
 
-namespace Utils{
-    enum Color{
+namespace Utils
+{
+    enum Color
+    {
         WHITE,
         BLACK
     };
 
-    enum PieceType{
+    enum PieceType
+    {
         PAWN = 1,
-        ROOK= 2,
+        BISHOP = 2,
         KNIGHT = 3,
-        BISHOP = 4,
+        ROOK = 4,
         QUEEN = 5,
         KING = 6
     };
 
-    enum State{
+    enum State
+    {
         SELECT,
         MOVE,
         CHECK,

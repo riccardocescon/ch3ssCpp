@@ -1,17 +1,17 @@
 #include "../../include/Enviroment/Cell.h"
 #include <iostream>
 
-Cell::Cell(): pos(0), freeUpperSpace(0), check(false)
+Cell::Cell() : pos(0), freeUpperSpace(0), check(false)
 {
 }
 
-//Layer size nedeed to get the cell symbol(Just to debug, not used in the game)
-Cell::Cell(int pos, int layerSize): pos(pos), freeUpperSpace(0), check(false)
+// Layer size nedeed to get the cell symbol(Just to debug, not used in the game)
+Cell::Cell(int pos, int layerSize) : pos(pos), freeUpperSpace(0), check(false)
 {
     symbol = getCellSymbol(layerSize);
 }
 
-Cell::Cell(int pos, CPiece *piece, int layerSize): pos(pos), piece(piece), freeUpperSpace(0), check(false)
+Cell::Cell(int pos, CPiece *piece, int layerSize) : pos(pos), piece(piece), freeUpperSpace(0), check(false)
 {
     symbol = getCellSymbol(layerSize);
 }
@@ -49,35 +49,41 @@ void Cell::print()
     }
     else
     {
-        std::cout << this->piece->getValue();
+        std::cout << this->piece->getType();
     }
 }
 
-std::string Cell::getCellSymbol(int size){
+std::string Cell::getCellSymbol(int size)
+{
     int x = (this->pos % size) - 1;
     int y = this->pos / size;
     std::string cell = "";
-    cell += (char) (x + 98);
-    cell += (char) (y + 49);
+    cell += (char)(x + 98);
+    cell += (char)(y + 49);
     return cell;
 }
 
-std::string Cell::getSymbol(){
+std::string Cell::getSymbol()
+{
     return this->symbol;
 }
 
-void Cell::setFreeUpperSpace(int space){
+void Cell::setFreeUpperSpace(int space)
+{
     this->freeUpperSpace = space;
 }
 
-int Cell::getFreeUpperSpace(){
+int Cell::getFreeUpperSpace()
+{
     return this->freeUpperSpace;
 }
 
-bool Cell::isCheck(){
+bool Cell::isCheck()
+{
     return this->check;
 }
 
-void Cell::setCheck(bool check){
+void Cell::setCheck(bool check)
+{
     this->check = check;
 }
